@@ -29,4 +29,14 @@
 
 <script setup>
 import homeHeader from '../components/homeComponent/homeHeader.vue';
+import { onMounted,computed } from 'vue';
+import { useStore } from 'vuex';
+import { useRoute,useRouter } from 'vue-router';
+const route = useRoute();
+const store = useStore();
+
+onMounted(()=>{
+    let dynamicId = route.params.id;
+    store.dispatch("getBlogDetailFromServer",dynamicId);
+})
 </script>

@@ -46,19 +46,21 @@
         </div>
 
         <div class="mt-6 px-4">
-
-            <article v-for="item in historyList" :key="item" class="flex justify-between py-4 px-6 border-2 border-shelifeRed-100 rounded-2xl buttonS text-sm mb-3">
+            <div v-if="experimentList">
+                <loader/>
+            </div>
+            <article v-else v-for="item in experimentList" :key="item" class="flex justify-between py-4 px-6 border-2 border-shelifeRed-100 rounded-2xl buttonS text-sm mb-3">
                 <div class="flex flex-col items-center justify-between">
 
                     <div class="flex items-center">
                         <span class="font-bold">تاریخ :</span>
-                        <span>1402/12/22</span>
+                        <span>{{ item.start_date }}__{{ item.end_date}}</span>
                     </div>
 
                     <div class="flex gap-1">
                         <span class="font-bold">نتیجه :</span>
-                        <span v-if="item.result" class="font-bold text-red-600">مثبت</span>
-                        <span v-if="!item.result" class="font-bold text-green-500">منفی</span>
+                        <span v-if="item.status" class="font-bold text-red-600">مثبت</span>
+                        <span v-if="!item.status" class="font-bold text-green-500">منفی</span>
                     </div>
 
                 </div>
@@ -66,7 +68,7 @@
                 <div class="flex flex-col items-center justify-between gap-2">
                     <div class="flex items-center">
                         <span class="font-bold">شناسه کیت :</span>
-                        <span>3468</span>
+                        <span>{{ item.serial }}</span>
                     </div>
                     <button class="bg-shelifeRed-100 text-white rounded-lg shadow-inner py-1 px-5 buttonS">دانلود نتیجه</button>
                 </div>
@@ -78,12 +80,20 @@
 </template>
 
 <script setup>
-import shelifeIcon from '../components/shelifeIcon.vue';
+import { useStore } from 'vuex';
+import { onMounted, computed } from 'vue';
 import {useRouter} from 'vue-router';
+import loader from '../components/Icons/loader.vue';
+
+const store = useStore();
 const router = useRouter();
 const goBack = ()=>{
     router.go(-1);
 };
+
+let experimentList = computed(()=>{
+    return store.getters.getUserExperiment;
+})
 let historyList =[
     {result : true},
     {result : true},
@@ -98,4 +108,8 @@ let historyList =[
     {result : true},
     {result : true},
 ]
+
+onMounted(()=>{
+    store.dispatch("getUserExperimentsFromServer");
+})
 </script>

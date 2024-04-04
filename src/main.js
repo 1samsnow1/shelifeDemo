@@ -4,7 +4,12 @@ import axios from 'axios'
 import store from './store/store.js'
 import App from './App.vue'
 import router from './router'
-axios.defaults.baseURL ="";
+import { getCookie } from './assets/cooki.js'
+axios.defaults.baseURL ="https://api.shelife.gorgon.ir/v1";
+
+if(getCookie("token")){
+axios.defaults.headers.common["token"] = getCookie("token");
+}
 const app = createApp(App)
 
 app.use(router)

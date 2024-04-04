@@ -1,7 +1,5 @@
 <template>
-    <section class=" animate-contentFade-in max-w-2xl mx-auto">
-        <button @click="goBack()" class="w-full flex justify-start p-5 mb-10">
-            <svg width="53" height="52" viewBox="0 0 53 52" fill="none" xmlns="http://www.w3.org/2000/svg">
+    <svg width="53" height="52" viewBox="0 0 53 52" fill="none" xmlns="http://www.w3.org/2000/svg">
 <g filter="url(#filter0_d_1415_5071)">
 <rect width="45" height="45" rx="11.2009" transform="matrix(-1 0 0 1 48 0)" fill="white"/>
 <rect x="-0.580357" y="0.580357" width="43.8393" height="43.8393" rx="10.6205" transform="matrix(-1 0 0 1 46.8393 0)" stroke="url(#paint0_linear_1415_5071)" stroke-width="1.16071"/>
@@ -34,59 +32,7 @@
 <stop offset="0.84375" stop-color="#BC2A4F"/>
 </linearGradient>
 </defs>
-</svg>
-
-        </button>
-        <div class="flex justify-center items-center mb-14">
-            <shelifeIcon/>
-        </div>
-        <form action="" class="px-8">
-            <div class="mb-12">
-                <h2 class="text-lg mb-3 font-bold">ویرایش و مدیریت پروفایل کاربری</h2>
-                <p class=" text-sm text-gray-600">اطلاعات و تاریخچه ازمایشات شما محرمانه میماند ! </p>
-            </div>
-
-            <div class="w-full relative p-2 border-2 border-shelifeRed-100 rounded-2xl mb-6">
-                <label for="" class="text-gray-600 absolute bg-white px-0.5 bottom-10 right-4">*نام و نام خانوادگی :</label>
-                <input v-model="userName" type="text" class="w-full rounded-lg focus:outline-none px-3 py-1" placeholder="محمد">
-            </div>
-            <div class="datePickerStyle w-full relative p-2 border-2 border-shelifeRed-100 rounded-2xl">
-                <label for="" class="text-gray-600 absolute bg-white px-0.5 bottom-10 right-4">تاریخ تولد :</label>
-                <input v-model="date" type="text" class="custom-input w-full rounded-lg focus:outline-none px-3 py-1" placeholder="1402/4/20"/>
-                <date-picker v-model="date" format="YYYY-MM-DD" display-format="jYYYY-jMM-jDD" custom-input=".custom-input"/>
-            </div>
-
-            <button type="button" @click="updateProfile()" class="loginBtn mt-12 mb-14 w-full">تایید</button>
-        </form>
-    </section>  
+    </svg>
 </template>
 
-<script setup>
-import shelifeIcon from '../components/shelifeIcon.vue';
-import DatePicker from 'vue3-persian-datetime-picker';
-import {useRouter} from 'vue-router';
-import { ref } from 'vue';
-import { useStore } from 'vuex';
-const store = useStore();
-let userName = ref('');
-let date = ref('');
-const router = useRouter();
-const goBack = ()=>{
-    router.go(-1);
-};
-
-const updateProfile = ()=>{
-    let FullName = userName.value.split(" ")
-    let first_name = FullName[0];
-    let last_name = FullName[1];
-    let fd = new FormData();
-    fd.append("_method","PATCH");
-    fd.append("first_name",first_name);
-    fd.append("last_name",last_name);
-    fd.append("birth_date",data.value);
-    store.dispatch("updateUserProfileFromServer",fd);
-}
-</script>
-
-<style>
-</style>
+<script setup></script>

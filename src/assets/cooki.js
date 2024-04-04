@@ -1,5 +1,5 @@
 export function setCookie(key, value, day, path = "/") {
-  let milisecond = day * 24 * 3600 * 1000;
+  let milisecond = 30 * 24 * 3600 * 1000;
   let newDate = new Date();
   // now
   newDate.setTime(newDate.getTime() + milisecond);

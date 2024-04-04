@@ -21,7 +21,7 @@
 
       <h2 class="w-full text-right text-2xl font-bold transform -translate-x-2">آموزش ها</h2>
       <section class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <educationCard v-for="i in 2" :key="i"/>
+        <educationCard v-if="blogList" v-for="item in blogList" :key="item" :itemInfo="item"/>
       </section>
 
     </section>
@@ -37,7 +37,19 @@ import homeCard from '../components/homeComponent/homeCard.vue';
 import banner from '../components/homeComponent/banner.vue';
 import educationCard from '../components/homeComponent/educationCard.vue';
 import homeFooter from '../components/homeComponent/homeFooter.vue';
-
+import { onMounted,computed } from 'vue';
+import { useStore } from 'vuex';
+import { getCookie } from '../assets/cooki.js';
+const store = useStore();
+let blogList = computed(()=>{
+    return store.getters.getBlogList
+})
+onMounted(()=>{
+    store.dispatch("getBlogListFromServer");
+    if(getCookie("token")){
+      store.dispatch("getUserProfileInfoFromServer");
+    }
+})
 
 const cardInfo = [
   {title:'درخواست کیت',desc:'ثبت سفارش کیت آزمایشگاهی',link:'/requestKit'},

@@ -1,20 +1,4 @@
 import { createRouter, createWebHistory } from 'vue-router'
-import HomeView from '../views/HomeView.vue';
-import welcomePage from '../views/welcomePage.vue';
-import login from '../views/loginPage.vue';
-import requestKit from '../views/requestKit.vue';
-import blogList from '../views/blogList.vue';
-import blogView from '../views/blogView.vue';
-import consultationForm from '../views/consultationForm.vue';
-import aboutUs from '../views/aboutUs.vue';
-import terms from '../views/terms.vue';
-import contactUs from '../views/contactUs.vue';
-import profile from '../views/profile.vue';
-import editProfile from '../views/editProfile.vue';
-import history from '../views/history.vue';
-import notFound from '../views/notFound.vue';
-import sendKit from '../views/sendKit.vue';
-import landing from '../views/landing.vue'
 
 const router = createRouter({
   history: createWebHistory(import.meta.env.BASE_URL),
@@ -22,82 +6,87 @@ const router = createRouter({
     {
       path:'/:catchAll(.*)',
       name:'notFound',
-      component: notFound,
+      component: () => import('../views/notFound.vue')
     },
     {
       path : '/',
       name : 'welcome',
-      component : welcomePage
+      component: () => import('../views/welcomePage.vue')
     },
     {
       path : '/landing',
       name : 'landing',
-      component : landing
+      component: () =>import('../views/landing.vue')
     },
     {
       path: '/consultationForm',
       name : 'consultationForm',
-      component : consultationForm
+      component: ()=>import('../views/consultationForm.vue')
     },
     {
       path:'/blogList',
       name: 'blogList',
-      component : blogList
+      component: ()=>import('../views/blogList.vue')
     },
     {
       path:'/blog',
       name :'blog',
-      component : blogView
+      component: ()=>import('../views/blogView.vue')
+    },
+    {
+      path:'/blog/:id',
+      name :'blog',
+      component: ()=>import('../views/blogView.vue')
     },
     {
       path : '/login',
       name: 'login',
-      component : login
+      component: ()=>import('../views/loginPage.vue')
     },
     {
       path: '/requestKit',
       name : 'requestKit',
-      component : requestKit
+      component : ()=>import('../views/requestKit.vue')
     },
     {
       path: '/sendKit',
       name: 'sendKit',
-      component: sendKit
+      component : ()=>import('../views/sendKit.vue')
     },
     {
       path: '/home',
       name: 'home',
-      component: HomeView
+      component: ()=>import('../views/HomeView.vue')
     },
     {
       path:'/aboutUs',
       name: 'aboutUs',
-      component: aboutUs
+      component: ()=>import('../views/aboutUs.vue')
     },
     {
       path: '/contactUs',
       name: 'contactUs',
-      component : contactUs
+      component: ()=>import('../views/contactUs.vue')
     },
     {
       path: '/terms',
       name: 'terms',
-      component: terms
+      component: ()=>import('../views/terms.vue')
     },
     {
       path:'/profile',
       name: 'profile',
-      component: profile
+      component: ()=>import('../views/profile.vue')
     },
     {
       path : '/profile/editProfile',
       name: 'editProfile',
-      component : editProfile
+      component:()=>import('../views/editProfile.vue')
     },
     {
       path: '/history',
       name: 'history',
-      component : history
+      component:()=>import('../views/history.vue')
     }
 
   ]

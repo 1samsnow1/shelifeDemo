@@ -22,13 +22,14 @@
 </template>
 
 <script setup>
-import {ref,computed,watch} from 'vue'
+import {ref,computed} from 'vue'
 const props = defineProps(['displayNumber'])
 const emit = defineEmits();
 
 const goNext=()=>{
     let newValue = props.displayNumber;
     emit('changeShowNumber',newValue+1);
+    emit('getIdentityInfo',codeMeli,identities)
 }
 
 // validation
@@ -38,13 +39,9 @@ let digitsOfCodeMeli = computed(()=>{
     return codeMeli.value.toString().length;
 })
 let identity = ref(null);
-let identities = ['13125','12345','225']
 const validation = ()=>{
     if(digitsOfCodeMeli.value!==10){
-        console.log(digitsOfCodeMeli.value)
         return err.value ='کد ملی معتبر نیست';
-    }else if(!identities.includes(identity.value)){
-        return err.value = 'کد شناسه معتبر نیست';
     }else{
         err.value = '';
         goNext();

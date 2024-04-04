@@ -10,7 +10,7 @@
                     <span class="transform translate-y-1 text-red-600"> * </span>
                     <span class=" text-gray-600">شماره تماس :</span>
                 </label>
-                <input v-model="phoneNumber" type="tel" class=" focus:outline-none px-1 py-3" placeholder="09331712156">
+                <input name="mobile" v-model="phoneNumber" type="tel" class="w-full rounded-lg focus:outline-none px-1 py-3" placeholder="09331712156">
             </div>
             <span class="text-red-600 text-sm mb-8">{{ err }}</span>
 
@@ -26,25 +26,22 @@
 <script setup>
 import { RouterLink } from 'vue-router';
 import {ref,computed} from 'vue';
+import { useStore } from 'vuex';
+const store = useStore();
 const props = defineProps(['displayNumber']);
 const emit = defineEmits();
-let phoneNumbers = ['09331712156','09331612156'];
 const goNext=()=>{
     let newValue = props.displayNumber;
-    if(phoneNumbers.includes(phoneNumber.value)){
-        reg = true;
-    }
-    emit('changeShowNumber',newValue+1,phoneNumber,reg);
+    emit('changeShowNumber',newValue+1,phoneNumber.value);
 }
 
 // validation
 let err = ref('');
-let reg = ref(false);
 let termStatus = ref(false);
 let phoneNumber = ref(null);
 let digitsOfNumber = computed(()=>{
-            return phoneNumber.value.toString().length;
-        })
+    return phoneNumber.value.toString().length;
+})
 
 const validation = ()=>{
     if(phoneNumber.value==null) {
@@ -55,6 +52,9 @@ const validation = ()=>{
     }else if(termStatus.value==false) {
         return err.value = 'لطفا با مقررات توافق کنید';
     }else {
+        let mobileNumber=new FormData();
+        mobileNumber.append("mobile",phoneNumber.value);
+        store.dispatch("sendTokenRequest",mobileNumber);
         err.value = '';
         goNext();
     }

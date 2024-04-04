@@ -24,5 +24,6 @@ const emit = defineEmits();
 const goBack=()=>{
     let newValue = props.displayNumber;
     emit('changeShowNumber',newValue-1);
+    emit('getAmountOfKit',amount.value)
 }
 </script>

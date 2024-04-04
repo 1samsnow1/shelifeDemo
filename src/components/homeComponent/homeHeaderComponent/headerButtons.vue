@@ -27,7 +27,7 @@ import {getCookie} from '@/assets/cooki.js';
 const router = useRouter();
 
 const checkAcc = ()=>{
-    let registery = getCookie('phoneNumber')
+    let registery = getCookie('token');
     if(registery){
         router.push('/profile');
     }else {
